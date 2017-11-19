@@ -6,9 +6,15 @@ import App from './app/App';
 import './assets/scss/';
 import Grommet from 'grommet/components/App';
 
+// Redux
+import { Provider } from 'react-redux';
+import store from './app/store';
+
 ReactDOM.render(
-  <Grommet centered={false}>
-    <App />
-  </Grommet>,
+  <Provider store={store}>
+    <Grommet centered={false}>
+      <App />
+    </Grommet>
+  </Provider>,
   document.getElementById('root')
 );
