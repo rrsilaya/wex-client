@@ -1,0 +1,38 @@
+html,
+body {
+	overflow: hidden;
+}
+
+.background {
+	position: absolute;
+	z-index: -99;
+
+	height: 100%;
+	width: 100%;
+	background-color: #222;
+}
+
+.content {
+	position: absolute;
+	top: 2.5%;
+	left: 0;
+	color: white;
+
+	height: 95%;
+	width: 100%;
+}
+
+.content.flex-center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.logo {
+	height: 172px;
+
+	animation-name: beat;
+	animation-duration: 1.5s;
+	animation-timing-function: cubic-bezier(.86,0,.07,1);
+	animation-iteration-count: infinite;
+}

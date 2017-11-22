@@ -16,7 +16,7 @@ export const getSession = () => {
 
 // Initial State
 const initialState = {
-  isGettingSession: true,
+  isGettingSession: false,
   player: null
 };
 
