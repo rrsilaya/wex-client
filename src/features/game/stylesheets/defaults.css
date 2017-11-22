@@ -1,0 +1,17 @@
+body,
+html {
+	font-family: 'HPSimplified', sans-serif;
+	font-size: 24pt;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+	outline: none;
+}
+
+button {
+	border: 0;
+	cursor: pointer;
+}
