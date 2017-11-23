@@ -37,3 +37,13 @@ input.primary {
 	color: var(--secondary);
 	padding: 5px 0;
 }
+
+button.secondary {
+	background: transparent;
+	text-transform: uppercase;
+	font-size: 60%;
+	letter-spacing: 5px;
+	color: var(--secondary);
+	border: 1px solid var(--secondary);
+	padding: 0 1.5em;
+}

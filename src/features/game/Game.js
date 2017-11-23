@@ -6,16 +6,18 @@ import './stylesheets/animations.css';
 import './stylesheets/style.css';
 import './stylesheets/defaults.css';
 import './stylesheets/helper.css';
-import logo from '../../assets/logo/full_white.svg';
+// import logo from '../../assets/logo/full_white.svg';
+
+import Question from './question/Question';
 
 class Game extends Component {
   render() {
     return (
       <div>
         <Particles params={config} className="background" />
-        <div className="content flex-center">
+        <div className="content">
           <div>
-            <img src={logo} alt="" className="logo" />
+            {/*<img src={logo} alt="" className="logo" />*/}
             {/*
               <input type="text" placeholder="Name" className="primary" />
               <br /><br />
@@ -23,6 +25,7 @@ class Game extends Component {
                 <span>Start Game</span>
               </button>
             */}
+            <Question />
           </div>
         </div>
       </div>

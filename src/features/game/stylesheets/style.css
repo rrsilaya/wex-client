@@ -14,16 +14,21 @@ body {
 
 .content {
 	position: absolute;
-	top: 2.5%;
-	left: 0;
+	top: 15px;
+	left: 15px;
 	color: white;
+	
+	height: calc(100% - 30px);
+	width: calc(100% - 30px);
+}
 
-	height: 95%;
+.content > div {
+	display: flex;
+	height: 100%;
 	width: 100%;
 }
 
 .content.flex-center {
-	display: flex;
 	align-items: center;
 	justify-content: center;
 }
