@@ -6,3 +6,7 @@
 html {
   overflow-y: scroll;
 }
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+}
