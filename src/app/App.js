@@ -19,7 +19,7 @@ class App extends Component {
         ) : (
           <BrowserRouter>
             <Switch>
-              <Route path="/" exact component={Game} />
+              <Route path="/" exact component={Dashboard} />
               {!this.props.player ? (
                 <Route path="/dashboard" component={Dashboard} />
               ) : (
