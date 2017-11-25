@@ -1,9 +1,9 @@
-html,
-body {
+body,
+html {
 	overflow: hidden;
 }
 
-.background {
+.game .background {
 	position: absolute;
 	z-index: -99;
 
@@ -12,7 +12,7 @@ body {
 	background-color: #222;
 }
 
-.content {
+.game .content {
 	position: absolute;
 	top: 15px;
 	left: 15px;
@@ -22,18 +22,18 @@ body {
 	width: calc(100% - 30px);
 }
 
-.content > div {
+.game .content > div {
 	display: flex;
 	height: 100%;
 	width: 100%;
 }
 
-.content.flex-center {
+.game .content.flex-center {
 	align-items: center;
 	justify-content: center;
 }
 
-.logo {
+.game .logo {
 	height: 172px;
 
 	animation-name: beat;

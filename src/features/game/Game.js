@@ -13,7 +13,7 @@ import Question from './question/Question';
 class Game extends Component {
   render() {
     return (
-      <div>
+      <div className="game">
         <Particles params={config} className="background" />
         <div className="content">
           <div>

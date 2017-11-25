@@ -3,7 +3,7 @@
 	--secondary: #fff;
 }
 
-button.primary {
+.game button.primary {
 	background-color: var(--secondary);
 	color: var(--primary);
 
@@ -13,23 +13,23 @@ button.primary {
 
 	transition: 100ms ease;
 }
-	button.primary * {
+	.game button.primary * {
 		display: inline-block;
 		transform: skew(15deg);
 
 		transition: 100ms ease;
 	}
 
-	button.primary:hover {
+	.game button.primary:hover {
 		transform: scale(1.05);
 		transition: 100ms ease;
 	}
 
-	button.primary:hover > * {
+	.game button.primary:hover > * {
 		transform: skew(0);
 	}
 
-input.primary {
+.game input.primary {
 	border-radius: 0;
 	text-align: center;
 	border: 2px solid var(--secondary);
@@ -38,7 +38,7 @@ input.primary {
 	padding: 5px 0;
 }
 
-button.secondary {
+.game button.secondary {
 	background: transparent;
 	text-transform: uppercase;
 	font-size: 60%;
