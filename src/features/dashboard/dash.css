@@ -1,5 +1,8 @@
-.center {
-  margin: auto;
-  width: 50%;
-  padding: 10px;
+.margin {
+  width: 80%;
+  margin: 2em auto;
+  font-size: 80%;
+}
+html {
+  overflow-y: scroll;
 }
