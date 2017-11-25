@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import Layer from 'grommet/components/Layer';
 import Form from 'grommet/components/Form';
-import Header from 'grommet/components/Header';
+import Box from 'grommet/components/Box';
+import Split from 'grommet/components/Split';
+import Heading from 'grommet/components/Heading';
 import Paragraph from 'grommet/components/Paragraph';
 import FormFields from 'grommet/components/FormFields';
+import TextInput from 'grommet/components/TextInput';
+import FormField from 'grommet/components/FormField';
 import Button from 'grommet/components/Button';
 import Footer from 'grommet/components/Footer';
 import Select from 'grommet/components/Select';
@@ -37,10 +41,23 @@ class Modal extends Component {
     return (
       <Layer closer={true} flush={false} onClose="">
         <Form className="form">
-          <Header>{this.state.mode} Question</Header>
+          <br />
+          <Heading tag={'h2'}>{this.state.mode} Question</Heading>
           <FormFields>
-            <fieldset>
-              <Paragraph>Select a Category</Paragraph>
+            <Split fixed={false} showOnResponsive="both">
+              <FormField label="Category">
+                <TextInput placeholder="e.g. TV Series" />
+              </FormField>
+              <FormField label="Difficulty">
+                <Select
+                  className="dropdown"
+                  placeHolder="None"
+                  options={['Easy', 'Medium', 'Hard']}
+                  onChange={this.changeCategory}
+                />
+              </FormField>
+            </Split>
+            <FormField label="Question Type">
               <Select
                 className="dropdown"
                 placeHolder="None"
@@ -51,82 +68,46 @@ class Modal extends Component {
                   'Anime',
                   'Last Category'
                 ]}
-                value={this.state.selectedCategory}
                 onChange={this.changeCategory}
               />
+            </FormField>
 
-              <Paragraph>Select Question Mode</Paragraph>
-              <form className="category">
-                <input
-                  type="radio"
-                  name="category"
-                  value="Multiple Choice"
-                  checked={this.state.selectedMode === 'Multiple Choice'}
-                  onChange={this.changeMode}
-                />{' '}
-                Multiple Choice<br />
-                <input
-                  type="radio"
-                  name="category"
-                  value="True or False"
-                  checked={this.state.selectedMode === 'True or False'}
-                  onChange={this.changeMode}
-                />{' '}
-                True or False<br />
-                <input
-                  type="radio"
-                  name="category"
-                  value="Text Answer"
-                  checked={this.state.selectedMode === 'Text Answer'}
-                  onChange={this.changeMode}
-                />{' '}
-                Text Answer<br />
-                <input
-                  type="radio"
-                  name="category"
-                  value="Number Answer"
-                  checked={this.state.selectedMode === 'Number Answer'}
-                  onChange={this.changeMode}
-                />{' '}
-                Number Answer
-              </form>
-              <Paragraph>Question</Paragraph>
+            <FormField label="Question">
               <textarea className="question" />
+            </FormField>
 
-              {this.state.selectedMode === 'Multiple Choice' && (
-                <div>
-                  <Paragraph>Choices:</Paragraph>
-                  <Paragraph>A</Paragraph>
-                  <textarea className="choices" />
-                  <Paragraph>B</Paragraph>
-                  <textarea className="choices" />
-                  <Paragraph>C</Paragraph>
-                  <textarea className="choices" />
-                  <Paragraph>D</Paragraph>
-                  <textarea className="choices" />
-                </div>
-              )}
+            <FormField label="Choices">
+              <Box className="choice-pad">
+                <FormField>
+                  <TextInput placeHolder="Choice A" />
+                </FormField>
+                <FormField>
+                  <TextInput placeHolder="Choice B" />
+                </FormField>
+                <FormField>
+                  <TextInput placeHolder="Choice C" />
+                </FormField>
+                <FormField>
+                  <TextInput placeHolder="Choice D" />
+                </FormField>
+              </Box>
+            </FormField>
 
-              <Paragraph>Answer</Paragraph>
-              {this.state.selectedMode === 'Number Answer' ? (
-                <input type="number" className="choices" />
-              ) : (
-                <input type="text" className="choices" />
-              )}
-            </fieldset>
-            <t />
+            <FormField label="Answer">
+              <TextInput />
+            </FormField>
           </FormFields>
           <Footer pad={{ vertical: 'medium' }}>
             <Button
               label={this.state.mode === 'Add' ? 'Add' : 'Edit'}
-              plain={true}
+              primary
               type="submit"
               icon={this.state.mode === 'Add' ? <AddIcon /> : <EditIcon />}
               onClick={this.props.hide}
             />
             <Button
               label="Cancel"
-              plain={true}
+              primary
               type="submit"
               icon={<CloseIcon />}
               onClick={this.props.hide}
