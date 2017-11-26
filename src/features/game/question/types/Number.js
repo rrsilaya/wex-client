@@ -1,11 +1,26 @@
 import React, { Component } from 'react';
 
 class Number extends Component {
+  handleAnswer = e => {
+    e.preventDefault();
+    this.props.answerQuestion(
+      this.props.index + 1,
+      parseInt(e.target.answer.value)
+    );
+  };
+
   render() {
     return (
       <div>
         <h4>{this.props.question}</h4>
-        <input type="number" className="primary" placeholder="Answer" />
+        <form onSubmit={this.handleAnswer}>
+          <input
+            type="number"
+            className="primary"
+            name="answer"
+            placeholder="Answer"
+          />
+        </form>
       </div>
     );
   }
