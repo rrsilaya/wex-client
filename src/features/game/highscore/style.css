@@ -1,0 +1,26 @@
+.highscore .table {
+	position: fixed;
+	width: 45%;
+	top: 5%;
+	right: 5%;
+	background-color: rgba(255, 255, 255, 0.3);
+	border-radius: 3px;
+}
+
+.highscore .label {
+	position: fixed;
+	top: 55%;
+	left: 6%;
+	font-size: 60px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.highscore .logo {
+	height: 25%;
+	width: 35%;
+	position: fixed;
+	top: 25%;
+	left: 8.5%;
+
+}
