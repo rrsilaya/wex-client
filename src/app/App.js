@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
 
 import Loader from '../features/session/Loader';
-import Game from '../features/game/Game';
+import GameContainer from '../features/game/GameContainer';
 import DashboardContainer from '../features/dashboard/DashboardContainer';
 
 class App extends Component {
@@ -19,7 +19,7 @@ class App extends Component {
         ) : (
           <BrowserRouter>
             <Switch>
-              <Route path="/" exact component={Game} />
+              <Route path="/" exact component={GameContainer} />
               {!this.props.player ? (
                 <Route path="/dashboard" component={DashboardContainer} />
               ) : (

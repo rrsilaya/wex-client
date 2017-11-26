@@ -1,27 +1,36 @@
 import React, { Component } from 'react';
+import Spinning from 'grommet/components/icons/Spinning';
 
 import './style.css';
 
 class Category extends Component {
+  componentDidMount() {
+    this.props.handleGetCategories();
+  }
+
   render() {
+    const { categories, isLoading, hasError } = this.props;
+
     return (
       <div className="splash">
         <div className="container">
           <h4>Select 3 Categories</h4>
 
           <form className="choosecategory">
-            <div>
-              <input type="checkbox" id="category1" />
-              <label className="category" htmlFor="category1">
-                Category 1
-              </label>
-            </div>
-            <div>
-              <input type="checkbox" id="category2" />
-              <label className="category" htmlFor="category2">
-                Category 2
-              </label>
-            </div>
+            {isLoading ? (
+              <Spinning size="medium" />
+            ) : hasError ? (
+              'An error occured'
+            ) : (
+              categories.map((category, i) => (
+                <div>
+                  <input type="checkbox" id={category.category} />
+                  <label className="category" htmlFor={category.category}>
+                    {category.category}
+                  </label>
+                </div>
+              ))
+            )}
           </form>
 
           <div className="proceed">

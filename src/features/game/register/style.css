@@ -39,3 +39,11 @@
 .splash .proceed {
 	margin-top: 20px;
 }
+
+.register {
+	text-align: center;
+}
+
+.register input {
+	margin-bottom: 20px;
+}
