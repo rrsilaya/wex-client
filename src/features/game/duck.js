@@ -89,7 +89,8 @@ const initialState = {
   player: null,
   isGettingSession: true,
 
-  isAnswering: false
+  isAnswering: false,
+  score: 0
 };
 
 const reducer = (state = initialState, action) => {
@@ -154,8 +155,12 @@ const reducer = (state = initialState, action) => {
       return handle(state, action, {
         start: prevState => ({
           ...prevState,
-          page: 'splash',
+          page: 'score',
           player: null
+        }),
+        finish: prevState => ({
+          ...prevState,
+          score: payload.data.data.score
         })
       });
 

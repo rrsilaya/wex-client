@@ -18,7 +18,8 @@ const mapStateToProps = state => {
     isGettingCategories,
     hasErroredCategories,
     player,
-    isAnswering
+    isAnswering,
+    score
   } = state.game;
 
   return {
@@ -28,7 +29,8 @@ const mapStateToProps = state => {
     isGettingCategories,
     hasErroredCategories,
     player,
-    isAnswering
+    isAnswering,
+    score
   };
 };
 

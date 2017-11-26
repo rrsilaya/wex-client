@@ -11,6 +11,8 @@ import Question from './question/Question';
 import Splash from './splash/Splash';
 import Register from './register/Register';
 import Category from './register/Category';
+import Score from './score/Score';
+import Highscore from './highscore/HighscoreContainer';
 
 class Game extends Component {
   renderPage = page => {
@@ -47,6 +49,15 @@ class Game extends Component {
             isAnswering={this.props.isAnswering}
           />
         );
+      case 'score':
+        return (
+          <Score
+            changePage={this.props.handleChangePage}
+            score={this.props.score}
+          />
+        );
+      case 'highscore':
+        return <Highscore />;
     }
   };
 

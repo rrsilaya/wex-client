@@ -15,7 +15,7 @@ class Question extends Component {
 
     const question = questions[qIndex];
 
-    return (
+    return qIndex !== qty ? (
       <div className="question">
         <div className="top">
           <div className="category">
@@ -64,6 +64,16 @@ class Question extends Component {
             </button>
           </div>
         </div>
+      </div>
+    ) : (
+      <div className="question">
+        <div />
+        <div className="center">
+          <button className="secondary" onClick={this.props.endGame}>
+            Continue
+          </button>
+        </div>
+        <div />
       </div>
     );
   }
