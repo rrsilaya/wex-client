@@ -11,7 +11,7 @@ class Category extends Component {
       <Accordion openMulti={true}>
         <AccordionPanel heading={this.props.category} pad={'medium'}>
           {this.props.questions.map(question => (
-            <Question description={question.question} key={question._id} />
+            <Question {...question} key={question._id} />
           ))}
         </AccordionPanel>
       </Accordion>

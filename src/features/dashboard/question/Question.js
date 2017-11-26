@@ -9,12 +9,22 @@ class Question extends Component {
   render() {
     return (
       <Card
-        label="Easy"
+        label={this.props.difficulty}
         colorIndex="grey-4-a"
         full={'horizontal'}
-        description={this.props.description}
+        description={
+          this.props.question +
+          (this.props.type === 'true_false' ? ` True or False?` : '')
+        }
         className="card-q"
       >
+        {this.props.type === 'multiple_choice' ? (
+          <ol className="choices" type="A">
+            {this.props.choices.map((choice, i) => <li key={i}>{choice}</li>)}
+          </ol>
+        ) : (
+          ''
+        )}
         <div className="buttons">
           <Button icon={<EditIcon />} href="#" />
           <Button icon={<TrashIcon />} href="#" />
