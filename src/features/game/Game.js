@@ -11,6 +11,7 @@ import Question from './question/Question';
 import Splash from './splash/Splash';
 import Register from './register/Register';
 import Category from './register/Category';
+import Score from './score/Score';
 
 class Game extends Component {
   renderPage = page => {
@@ -47,6 +48,8 @@ class Game extends Component {
             isAnswering={this.props.isAnswering}
           />
         );
+      case 'score':
+        return <Score />;
     }
   };
 
