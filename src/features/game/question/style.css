@@ -96,7 +96,7 @@
 
 .question button.mult_choice {
 	display: flex;
-	align-items: stretch;
+	align-items: center;
 
 	width: 100%;
 	background-color: var(--secondary);
