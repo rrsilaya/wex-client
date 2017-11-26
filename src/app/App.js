@@ -4,7 +4,7 @@ import './App.css';
 
 import Loader from '../features/session/Loader';
 import Game from '../features/game/Game';
-import Dashboard from '../features/dashboard/Dashboard';
+import DashboardContainer from '../features/dashboard/DashboardContainer';
 
 class App extends Component {
   componentDidMount() {
@@ -21,7 +21,7 @@ class App extends Component {
             <Switch>
               <Route path="/" exact component={Game} />
               {!this.props.player ? (
-                <Route path="/dashboard" component={Dashboard} />
+                <Route path="/dashboard" component={DashboardContainer} />
               ) : (
                 ''
               )}

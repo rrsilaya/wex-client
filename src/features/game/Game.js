@@ -6,26 +6,23 @@ import './stylesheets/animations.css';
 import './stylesheets/style.css';
 import './stylesheets/defaults.css';
 import './stylesheets/helper.css';
-// import logo from '../../assets/logo/full_white.svg';
 
 import Question from './question/Question';
+import Splash from './splash/Splash';
+import Register from './register/Register';
 
 class Game extends Component {
   render() {
     return (
-      <div>
+      <div className="game">
         <Particles params={config} className="background" />
         <div className="content">
           <div>
-            {/*<img src={logo} alt="" className="logo" />*/}
+            <Splash />
             {/*
-              <input type="text" placeholder="Name" className="primary" />
-              <br /><br />
-              <button className="primary">
-                <span>Start Game</span>
-              </button>
-            */}
+            <Register />
             <Question />
+            */}
           </div>
         </div>
       </div>

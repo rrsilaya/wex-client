@@ -1,0 +1,24 @@
+.form .dropdown {
+	width: 100%;
+}
+
+.form .category {
+	width: 100%;
+}
+
+.form .question {
+	resize: none;
+	height: 20%;
+	width: 100%;
+}
+
+.form .choices {
+	resize: none;
+	height: 50px;
+	width: 100%;
+}
+
+.form input.answer {
+	height: 100px;
+	width: 100%;
+}

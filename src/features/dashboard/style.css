@@ -1,0 +1,26 @@
+.wrapper {
+  height: 100vh;
+  overflow-y: scroll;
+
+  display: flex;
+  justify-content: center;
+}
+
+.wrapper .app {
+  width: 80%;
+  margin-top: 3em;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.card-q {
+  margin-bottom: 1em;
+}
+
+.choices {
+	margin-bottom: 0;
+	margin-left: 1em;
+}

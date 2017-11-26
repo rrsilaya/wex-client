@@ -1,5 +1,8 @@
-body,
 html {
+	overflow: hidden;
+}
+
+.game {
 	font-family: 'HPSimplified', sans-serif;
 	font-size: 24pt;
 }
@@ -8,25 +11,25 @@ html {
 	box-sizing: border-box;
 }
 
-input:focus,
-select:focus,
-textarea:focus,
-button:focus {
+.game input:focus,
+.game select:focus,
+.game textarea:focus,
+.game button:focus {
 	outline: none;
 }
 
-button {
+.game button {
 	border: 0;
 	cursor: pointer;
 }
 
-input[type=number]::-webkit-outer-spin-button,
-input[type=number]::-webkit-inner-spin-button {
+.game input[type=number]::-webkit-outer-spin-button,
+.game input[type=number]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-input[type=number] {
+.game input[type=number] {
   -moz-appearance: textfield;
 }
 
