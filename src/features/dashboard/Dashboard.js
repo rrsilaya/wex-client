@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
 
 import Grommet from 'grommet/components/App';
-import Box from 'grommet/components/Box';
-import Accordion from 'grommet/components/Accordion';
-import AccordionPanel from 'grommet/components/AccordionPanel';
 import Heading from 'grommet/components/Heading';
 import Button from 'grommet/components/Button';
 
 import AddIcon from 'grommet/components/icons/base/Add';
-import EditIcon from 'grommet/components/icons/base/Edit';
-import TrashIcon from 'grommet/components/icons/base/Trash';
 
 import Modal from './Modal/Modal';
 import Category from './category/Category';
@@ -23,6 +18,10 @@ class Dashboard extends Component {
       show: false,
       id: null
     };
+  }
+
+  componentDidMount() {
+    this.props.handleGetQuestions();
   }
 
   showModal = () => {
@@ -40,7 +39,13 @@ class Dashboard extends Component {
         <div className="wrapper">
           <div className="app">
             <Heading tag={'h1'}>Questions</Heading>
-            <Category category="Movies" />
+            {this.props.categories.map((category, i) => (
+              <Category
+                category={category.category}
+                key={i}
+                questions={category.questions}
+              />
+            ))}
             <br />
             <div className="buttons">
               <Button

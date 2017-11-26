@@ -12,7 +12,7 @@ class Question extends Component {
         label="Easy"
         colorIndex="grey-4-a"
         full={'horizontal'}
-        description="This is a fucking description"
+        description={this.props.description}
         className="card-q"
       >
         <div className="buttons">
