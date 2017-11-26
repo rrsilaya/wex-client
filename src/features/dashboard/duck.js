@@ -38,8 +38,7 @@ export const deleteQuestion = id => {
 const initialState = {
   isGettingQuestion: false,
   isAddingQuestion: false,
-  categories: [],
-  questions: []
+  categories: []
 };
 
 // Reducer
@@ -70,8 +69,7 @@ const reducer = (state = initialState, action) => {
           isAddingQuestion: true
         }),
         success: prevState => ({
-          ...prevState,
-          questions: [...state.questions, payload.data]
+          ...prevState
         }),
         finish: prevState => ({
           ...prevState,

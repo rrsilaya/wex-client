@@ -18,15 +18,38 @@ class Modal extends Component {
     this.state = {
       mode: this.props.id === null ? 'Add' : 'Edit',
       selectedCategory: 'Movies',
-      selectedMode: 'Multiple Choice',
-      question: '',
-      choices: [],
-      answer: ''
+      selectedMode: 'multiple_choice',
+      selectedDifficulty: 'Easy'
     };
 
     this.changeMode = this.changeMode.bind(this);
     this.changeCategory = this.changeCategory.bind(this);
+    this.changeDifficulty = this.changeDifficulty.bind(this);
   }
+
+  handleSubmit = e => {
+    e.preventDefault();
+    const question = {
+      category: this.state.selectedCategory,
+      type: this.state.selectedMode,
+      difficulty: this.state.selectedDifficulty,
+      question: e.target.question.value,
+      answer: e.target.answer.value,
+      choices:
+        this.state.selectedMode === 'multiple_choice'
+          ? [
+              e.target.choice1.value,
+              e.target.choice2.value,
+              e.target.choice3.value,
+              e.target.choice4.value
+            ]
+          : []
+    };
+    console.log(question);
+    e.target.reset();
+    this.props.hide();
+    this.props.handleAddQuestion(question);
+  };
 
   changeMode(e) {
     this.setState({ selectedMode: e.target.value });
@@ -36,10 +59,14 @@ class Modal extends Component {
     this.setState({ selectedCategory: value });
   }
 
+  changeDifficulty({ value }) {
+    this.setState({ selectedDifficulty: value });
+  }
+
   render() {
     return (
       <Layer closer={true} flush={false} onClose="">
-        <Form className="form">
+        <Form className="form" onSubmit={this.handleSubmit}>
           <Header>{this.state.mode} Question</Header>
           <FormFields>
             <fieldset>
@@ -56,65 +83,81 @@ class Modal extends Component {
                 ]}
                 value={this.state.selectedCategory}
                 onChange={this.changeCategory}
+                name="category"
+              />
+
+              <Paragraph>Select Difficulty</Paragraph>
+              <Select
+                className="dropdown"
+                placeHolder="None"
+                options={['Easy', 'Medium', 'Hard']}
+                value={this.state.selectedDifficulty}
+                onChange={this.changeDifficulty}
+                name="difficulty"
               />
 
               <Paragraph>Select Question Mode</Paragraph>
-              <form className="category">
+              <form className="category" name="mode">
                 <input
                   type="radio"
-                  name="category"
-                  value="Multiple Choice"
-                  checked={this.state.selectedMode === 'Multiple Choice'}
+                  value="multiple_choice"
+                  checked={this.state.selectedMode === 'multiple_choice'}
                   onChange={this.changeMode}
+                  required
                 />{' '}
                 Multiple Choice<br />
                 <input
                   type="radio"
-                  name="category"
-                  value="True or False"
-                  checked={this.state.selectedMode === 'True or False'}
+                  value="true_false"
+                  checked={this.state.selectedMode === 'true_false'}
                   onChange={this.changeMode}
+                  required
                 />{' '}
                 True or False<br />
                 <input
                   type="radio"
-                  name="category"
-                  value="Text Answer"
-                  checked={this.state.selectedMode === 'Text Answer'}
+                  value="text"
+                  checked={this.state.selectedMode === 'text'}
                   onChange={this.changeMode}
+                  required
                 />{' '}
                 Text Answer<br />
                 <input
                   type="radio"
-                  name="category"
-                  value="Number Answer"
-                  checked={this.state.selectedMode === 'Number Answer'}
+                  value="number"
+                  checked={this.state.selectedMode === 'number'}
                   onChange={this.changeMode}
+                  required
                 />{' '}
                 Number Answer
               </form>
               <Paragraph>Question</Paragraph>
-              <textarea className="question" />
+              <textarea className="question" name="question" required />
 
-              {this.state.selectedMode === 'Multiple Choice' && (
+              {this.state.selectedMode === 'multiple_choice' && (
                 <div>
                   <Paragraph>Choices:</Paragraph>
                   <Paragraph>A</Paragraph>
-                  <textarea className="choices" />
+                  <textarea className="choices" name="choice1" required />
                   <Paragraph>B</Paragraph>
-                  <textarea className="choices" />
+                  <textarea className="choices" name="choice2" required />
                   <Paragraph>C</Paragraph>
-                  <textarea className="choices" />
+                  <textarea className="choices" name="choice3" required />
                   <Paragraph>D</Paragraph>
-                  <textarea className="choices" />
+                  <textarea className="choices" name="choice4" required />
                 </div>
               )}
 
               <Paragraph>Answer</Paragraph>
-              {this.state.selectedMode === 'Number Answer' ? (
-                <input type="number" className="choices" />
+              {this.state.selectedMode === 'number' ? (
+                <input
+                  type="number"
+                  className="choices"
+                  name="answer"
+                  required
+                />
               ) : (
-                <input type="text" className="choices" />
+                <input type="text" className="choices" name="answer" required />
               )}
             </fieldset>
             <t />
@@ -123,9 +166,8 @@ class Modal extends Component {
             <Button
               label={this.state.mode === 'Add' ? 'Add' : 'Edit'}
               plain={true}
-              type="submit"
               icon={this.state.mode === 'Add' ? <AddIcon /> : <EditIcon />}
-              onClick={this.props.hide}
+              type="submit"
             />
             <Button
               label="Cancel"

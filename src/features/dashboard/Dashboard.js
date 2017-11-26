@@ -8,6 +8,7 @@ import AddIcon from 'grommet/components/icons/base/Add';
 
 import ModalContainer from './Modal/ModalContainer';
 import Category from './category/Category';
+import Loader from '../session/SmallLoader';
 
 import './style.css';
 
@@ -39,25 +40,29 @@ class Dashboard extends Component {
           <ModalContainer hide={this.hideModal} id={this.state.id} />
         )}
         <div className="wrapper">
-          <div className="app">
-            <Heading tag={'h1'}>Questions</Heading>
-            {this.props.categories.map((category, i) => (
-              <Category
-                category={category.category}
-                key={i}
-                questions={category.questions}
-              />
-            ))}
-            <br />
-            <div className="buttons">
-              <Button
-                icon={<AddIcon />}
-                label="Add Question"
-                primary={true}
-                onClick={this.showModal}
-              />
+          {this.props.isGettingQuestion ? (
+            <Loader />
+          ) : (
+            <div className="app">
+              <Heading tag={'h1'}>Questions</Heading>
+              {this.props.categories.map((category, i) => (
+                <Category
+                  category={category.category}
+                  key={i}
+                  questions={category.questions}
+                />
+              ))}
+              <br />
+              <div className="buttons">
+                <Button
+                  icon={<AddIcon />}
+                  label="Add Question"
+                  primary={true}
+                  onClick={this.showModal}
+                />
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </Grommet>
     );
