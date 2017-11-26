@@ -142,7 +142,8 @@ const reducer = (state = initialState, action) => {
         success: prevState => ({
           ...prevState,
           player: payload.data.data,
-          page: 'gameplay'
+          page: 'gameplay',
+          score: 0
         }),
         finish: prevState => ({
           ...prevState,

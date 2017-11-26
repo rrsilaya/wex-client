@@ -69,8 +69,8 @@ class Question extends Component {
       <div className="question">
         <div />
         <div className="center">
-          <button className="secondary" onClick={this.props.endGame}>
-            Continue
+          <button className="primary" onClick={this.props.endGame}>
+            <span>Continue</span>
           </button>
         </div>
         <div />
