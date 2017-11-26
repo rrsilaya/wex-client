@@ -7,6 +7,8 @@ import TrueFalse from './types/TrueFalse';
 import Number from './types/Number';
 import Text from './types/Text';
 
+import Spinning from 'grommet/components/icons/Spinning';
+
 class Question extends Component {
   render() {
     const { questions, qIndex, qty } = this.props.player;
@@ -25,14 +27,32 @@ class Question extends Component {
           </div>
         </div>
         <div className="center">
-          {question.type === 'true_false' ? (
-            <TrueFalse {...question} />
+          {this.props.isAnswering ? (
+            <Spinning size="large" />
+          ) : question.type === 'true_false' ? (
+            <TrueFalse
+              {...question}
+              answerQuestion={this.props.handleAnswer}
+              index={qIndex}
+            />
           ) : question.type === 'number' ? (
-            <Number {...question} />
+            <Number
+              {...question}
+              answerQuestion={this.props.handleAnswer}
+              index={qIndex}
+            />
           ) : question.type === 'text' ? (
-            <Text {...question} />
+            <Text
+              {...question}
+              answerQuestion={this.props.handleAnswer}
+              index={qIndex}
+            />
           ) : (
-            <MultipleChoice {...question} />
+            <MultipleChoice
+              {...question}
+              answerQuestion={this.props.handleAnswer}
+              index={qIndex}
+            />
           )}
         </div>
 

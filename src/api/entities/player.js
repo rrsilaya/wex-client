@@ -11,3 +11,7 @@ export const newGame = player => {
 export const endGame = () => {
   return axios.put('/api/player');
 };
+
+export const answerQuestion = (index, answer) => {
+  return axios.put(`/api/player/${index}`, answer);
+};

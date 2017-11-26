@@ -8,6 +8,7 @@ const GET_CATEGORIES = 'GAME/GET_CATEGORIES';
 const NEW_GAME = 'GAME/NEW_GAME';
 const END_GAME = 'GAME/END_GAME';
 const GET_SESSION = 'SESSION/GET_SESSION';
+const ANSWER_QUESTION = 'GAME/ANSWER_QUESTION';
 
 // Action Creators
 export const changePage = payload => {
@@ -63,6 +64,15 @@ export const getSession = () => {
   };
 };
 
+export const answerQuestion = (index, answer) => {
+  return dispatch => {
+    return dispatch({
+      type: ANSWER_QUESTION,
+      promise: Api.answerQuestion(index, { answer })
+    });
+  };
+};
+
 // Initial State
 const initialState = {
   page: 'splash',
@@ -77,7 +87,9 @@ const initialState = {
   hasErroredCategories: false,
 
   player: null,
-  isGettingSession: true
+  isGettingSession: true,
+
+  isAnswering: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -161,6 +173,22 @@ const reducer = (state = initialState, action) => {
         finish: prevState => ({
           ...prevState,
           isGettingSession: false
+        })
+      });
+
+    case ANSWER_QUESTION:
+      return handle(state, action, {
+        start: prevState => ({
+          ...prevState,
+          isAnswering: true
+        }),
+        success: prevState => ({
+          ...prevState,
+          player: payload.data.data
+        }),
+        finish: prevState => ({
+          ...prevState,
+          isAnswering: false
         })
       });
 

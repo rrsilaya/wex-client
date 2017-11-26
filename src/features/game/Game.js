@@ -40,7 +40,12 @@ class Game extends Component {
         );
       case 'gameplay':
         return (
-          <Question player={this.props.player} endGame={this.props.handleEnd} />
+          <Question
+            player={this.props.player}
+            endGame={this.props.handleEnd}
+            handleAnswer={this.props.handleAnswer}
+            isAnswering={this.props.isAnswering}
+          />
         );
     }
   };

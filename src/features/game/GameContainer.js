@@ -6,7 +6,8 @@ import {
   changeForm,
   getCategories,
   newGame,
-  endGame
+  endGame,
+  answerQuestion
 } from './duck';
 
 const mapStateToProps = state => {
@@ -16,7 +17,8 @@ const mapStateToProps = state => {
     categories,
     isGettingCategories,
     hasErroredCategories,
-    player
+    player,
+    isAnswering
   } = state.game;
 
   return {
@@ -25,7 +27,8 @@ const mapStateToProps = state => {
     categories,
     isGettingCategories,
     hasErroredCategories,
-    player
+    player,
+    isAnswering
   };
 };
 
@@ -45,6 +48,9 @@ const mapDispatchToProps = dispatch => {
     },
     handleEnd: () => {
       dispatch(endGame());
+    },
+    handleAnswer: (index, answer) => {
+      dispatch(answerQuestion(index, answer));
     }
   };
 };
