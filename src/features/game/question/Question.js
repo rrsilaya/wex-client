@@ -9,29 +9,39 @@ import Text from './types/Text';
 
 class Question extends Component {
   render() {
-    const question =
-      'In the series How To Get Away with Murder, how many students did Annalise Keating hired as part of her team?';
-    const choices = ['Apple', 'Vegetable', 'Vegan', 'Meat'];
+    const { questions, qIndex, qty } = this.props.player;
+
+    const question = questions[qIndex];
 
     return (
       <div className="question">
         <div className="top">
           <div className="category">
-            <span>TV Series</span>
+            <span>{question.category}</span>
           </div>
           <div className="counter">
-            <span>3</span>
-            <span>5</span>
+            <span>{qIndex + 1}</span>
+            <span>{qty}</span>
           </div>
         </div>
         <div className="center">
-          <TrueFalse question={question} />
+          {question.type === 'true_false' ? (
+            <TrueFalse {...question} />
+          ) : question.type === 'number' ? (
+            <Number {...question} />
+          ) : question.type === 'text' ? (
+            <Text {...question} />
+          ) : (
+            <MultipleChoice {...question} />
+          )}
         </div>
 
         <div className="bottom">
           <img src={logo} alt="" className="qlogo" />
           <div className="exit">
-            <button className="secondary">End Game</button>
+            <button className="secondary" onClick={this.props.endGame}>
+              End Game
+            </button>
           </div>
         </div>
       </div>

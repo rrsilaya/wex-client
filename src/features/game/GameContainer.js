@@ -1,7 +1,13 @@
 import { connect } from 'react-redux';
 import Game from './Game';
 
-import { changePage, changeForm, getCategories } from './duck';
+import {
+  changePage,
+  changeForm,
+  getCategories,
+  newGame,
+  endGame
+} from './duck';
 
 const mapStateToProps = state => {
   const {
@@ -9,7 +15,8 @@ const mapStateToProps = state => {
     form,
     categories,
     isGettingCategories,
-    hasErroredCategories
+    hasErroredCategories,
+    player
   } = state.game;
 
   return {
@@ -17,7 +24,8 @@ const mapStateToProps = state => {
     form,
     categories,
     isGettingCategories,
-    hasErroredCategories
+    hasErroredCategories,
+    player
   };
 };
 
@@ -31,6 +39,12 @@ const mapDispatchToProps = dispatch => {
     },
     handleGetCategories: () => {
       dispatch(getCategories());
+    },
+    handleNewGame: player => {
+      dispatch(newGame(player));
+    },
+    handleEnd: () => {
+      dispatch(endGame());
     }
   };
 };

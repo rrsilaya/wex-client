@@ -5,6 +5,9 @@ import * as Api from '../../api/';
 const CHANGE_PAGE = 'GAME/CHANGE_PAGE';
 const CHANGE_FORM = 'GAME/CHANGE_FORM';
 const GET_CATEGORIES = 'GAME/GET_CATEGORIES';
+const NEW_GAME = 'GAME/NEW_GAME';
+const END_GAME = 'GAME/END_GAME';
+const GET_SESSION = 'SESSION/GET_SESSION';
 
 // Action Creators
 export const changePage = payload => {
@@ -33,17 +36,48 @@ export const getCategories = () => {
   };
 };
 
+export const newGame = data => {
+  return dispatch => {
+    return dispatch({
+      type: NEW_GAME,
+      promise: Api.newGame(data)
+    });
+  };
+};
+
+export const endGame = () => {
+  return dispatch => {
+    return dispatch({
+      type: END_GAME,
+      promise: Api.endGame()
+    });
+  };
+};
+
+export const getSession = () => {
+  return dispatch => {
+    return dispatch({
+      type: GET_SESSION,
+      promise: Api.getSession()
+    });
+  };
+};
+
 // Initial State
 const initialState = {
   page: 'splash',
   form: {
     name: '',
-    qty: ''
+    qty: '',
+    categories: []
   },
 
   categories: [],
   isGettingCategories: true,
-  hasErroredCategories: false
+  hasErroredCategories: false,
+
+  player: null,
+  isGettingSession: true
 };
 
 const reducer = (state = initialState, action) => {
@@ -83,6 +117,50 @@ const reducer = (state = initialState, action) => {
         finish: prevState => ({
           ...prevState,
           isGettingCategories: false
+        })
+      });
+
+    case NEW_GAME:
+      return handle(state, action, {
+        start: prevState => ({
+          ...prevState,
+          isGettingCategories: true
+        }),
+        success: prevState => ({
+          ...prevState,
+          player: payload.data.data,
+          page: 'gameplay'
+        }),
+        finish: prevState => ({
+          ...prevState,
+          isGettingCategories: false,
+          form: initialState.form
+        })
+      });
+
+    case END_GAME:
+      return handle(state, action, {
+        start: prevState => ({
+          ...prevState,
+          page: 'splash',
+          player: null
+        })
+      });
+
+    case GET_SESSION:
+      return handle(state, action, {
+        start: prevState => ({
+          ...prevState,
+          isGettingSession: true
+        }),
+        success: prevState => ({
+          ...prevState,
+          player: payload.data.data,
+          page: payload.data.data ? 'gameplay' : 'splash'
+        }),
+        finish: prevState => ({
+          ...prevState,
+          isGettingSession: false
         })
       });
 

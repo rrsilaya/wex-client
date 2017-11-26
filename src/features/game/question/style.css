@@ -126,6 +126,7 @@
 	color: var(--secondary);
 
 	max-width: 0;
+	min-height: 100%;
 	margin-right: 1em;
 	transition: 500ms ease;
 }

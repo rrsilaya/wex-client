@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 import App from './App';
 
-import { getSession } from '../features/session/duck';
+import { getSession } from '../features/game/duck';
 
 const mapStateToProps = state => {
-  const { player, isGettingSession } = state.session;
+  const { player, isGettingSession } = state.game;
 
   return {
     player,

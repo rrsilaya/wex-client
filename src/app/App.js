@@ -8,7 +8,7 @@ import DashboardContainer from '../features/dashboard/DashboardContainer';
 
 class App extends Component {
   componentDidMount() {
-    // this.props.handleGetSession();
+    this.props.handleGetSession();
   }
 
   render() {

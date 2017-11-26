@@ -21,8 +21,8 @@ class Game extends Component {
         return (
           <Register
             changeForm={this.props.handleChangeForm}
-            qty={this.props.qty}
-            name={this.props.name}
+            qty={this.props.form.qty}
+            name={this.props.form.name}
             changePage={this.props.handleChangePage}
           />
         );
@@ -33,10 +33,15 @@ class Game extends Component {
             handleGetCategories={this.props.handleGetCategories}
             isLoading={this.props.isGettingCategories}
             hasError={this.props.hasErroredCategories}
+            name={this.props.form.name}
+            qty={this.props.form.qty}
+            newGame={this.props.handleNewGame}
           />
         );
       case 'gameplay':
-        return <Question />;
+        return (
+          <Question player={this.props.player} endGame={this.props.handleEnd} />
+        );
     }
   };
 
