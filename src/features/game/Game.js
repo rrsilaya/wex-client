@@ -9,6 +9,7 @@ import './stylesheets/helper.css';
 
 import Question from './question/Question';
 import Splash from './splash/Splash';
+import Register from './register/Register';
 
 class Game extends Component {
   render() {
@@ -19,11 +20,7 @@ class Game extends Component {
           <div>
             <Splash />
             {/*
-              <input type="text" placeholder="Name" className="primary" />
-              <br /><br />
-              <button className="primary">
-                <span>Start Game</span>
-              </button>
+            <Register />
             <Question />
             */}
           </div>
