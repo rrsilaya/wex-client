@@ -10,6 +10,7 @@ import Select from 'grommet/components/Select';
 import AddIcon from 'grommet/components/icons/base/AddCircle';
 import CloseIcon from 'grommet/components/icons/base/Close';
 import EditIcon from 'grommet/components/icons/base/Edit';
+import Spinning from 'grommet/components/icons/Spinning';
 import './style.css';
 
 class Modal extends Component {
@@ -166,8 +167,20 @@ class Modal extends Component {
             <Button
               label={this.state.mode === 'Add' ? 'Add' : 'Edit'}
               plain={true}
-              icon={this.state.mode === 'Add' ? <AddIcon /> : <EditIcon />}
-              type="submit"
+              icon={
+                this.state.mode === 'Add' ? (
+                  this.props.isAddingQuestion ? (
+                    <Spinning />
+                  ) : (
+                    <AddIcon />
+                  )
+                ) : this.props.isAddingQuestion ? (
+                  <Spinning />
+                ) : (
+                  <EditIcon />
+                )
+              }
+              type={this.props.isAddingQuestion ? '' : 'submit'}
             />
             <Button
               label="Cancel"
