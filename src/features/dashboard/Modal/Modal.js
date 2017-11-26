@@ -18,7 +18,10 @@ class Modal extends Component {
     this.state = {
       mode: this.props.id === null ? 'Add' : 'Edit',
       selectedCategory: 'Movies',
-      selectedMode: 'Multiple Choice'
+      selectedMode: 'Multiple Choice',
+      question: '',
+      choices: [],
+      answer: ''
     };
 
     this.changeMode = this.changeMode.bind(this);

@@ -6,7 +6,7 @@ import Button from 'grommet/components/Button';
 
 import AddIcon from 'grommet/components/icons/base/Add';
 
-import Modal from './Modal/Modal';
+import ModalContainer from './Modal/ModalContainer';
 import Category from './category/Category';
 
 import './style.css';
@@ -21,7 +21,7 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    this.props.handleGetQuestions();
+    this.props.handleGetCategories();
   }
 
   showModal = () => {
@@ -35,7 +35,9 @@ class Dashboard extends Component {
   render() {
     return (
       <Grommet centered={false}>
-        {this.state.show && <Modal hide={this.hideModal} id={this.state.id} />}
+        {this.state.show && (
+          <ModalContainer hide={this.hideModal} id={this.state.id} />
+        )}
         <div className="wrapper">
           <div className="app">
             <Heading tag={'h1'}>Questions</Heading>

@@ -6,6 +6,11 @@ import EditIcon from 'grommet/components/icons/base/Edit';
 import TrashIcon from 'grommet/components/icons/base/Trash';
 
 class Question extends Component {
+  handleDelete = () => {
+    // this.props.handleDelete(this.props.id);
+    this.props.handleDelete(this.props._id);
+  };
+
   render() {
     return (
       <Card
@@ -27,7 +32,7 @@ class Question extends Component {
         )}
         <div className="buttons">
           <Button icon={<EditIcon />} href="#" />
-          <Button icon={<TrashIcon />} href="#" />
+          <Button icon={<TrashIcon />} href="#" onClick={this.handleDelete} />
         </div>
       </Card>
     );
