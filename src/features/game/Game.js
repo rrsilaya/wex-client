@@ -6,9 +6,9 @@ import './stylesheets/animations.css';
 import './stylesheets/style.css';
 import './stylesheets/defaults.css';
 import './stylesheets/helper.css';
-// import logo from '../../assets/logo/full_white.svg';
 
 import Question from './question/Question';
+import Splash from './splash/Splash';
 
 class Game extends Component {
   render() {
@@ -17,15 +17,15 @@ class Game extends Component {
         <Particles params={config} className="background" />
         <div className="content">
           <div>
-            {/*<img src={logo} alt="" className="logo" />*/}
+            <Splash />
             {/*
               <input type="text" placeholder="Name" className="primary" />
               <br /><br />
               <button className="primary">
                 <span>Start Game</span>
               </button>
-            */}
             <Question />
+            */}
           </div>
         </div>
       </div>
