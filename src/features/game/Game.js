@@ -10,6 +10,7 @@ import './stylesheets/helper.css';
 import Question from './question/Question';
 import Splash from './splash/Splash';
 import Register from './register/Register';
+import Category from './register/Category';
 
 class Game extends Component {
   render() {
@@ -18,8 +19,9 @@ class Game extends Component {
         <Particles params={config} className="background" />
         <div className="content">
           <div>
-            <Splash />
+            <Category />
             {/*
+            <Splash />
             <Register />
             <Question />
             */}
