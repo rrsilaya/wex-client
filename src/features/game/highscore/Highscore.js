@@ -22,7 +22,12 @@ class Highscore extends Component {
   render() {
     return (
       <div className="highscore">
-        <button className="secondary">Proceed</button>
+        <button
+          className="secondary"
+          onClick={() => this.props.handlePageChange('splash')}
+        >
+          Proceed
+        </button>
         <img src={logo} alt="wex" className="logo" />
         <Label className="label"> Cream of the Crop </Label>
         <Table scrollable={false} className="table">
