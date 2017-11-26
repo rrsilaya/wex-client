@@ -5,6 +5,7 @@ import { handle } from 'redux-pack';
 const GET_CATEGORIES = 'CATEGORY/GET_CATEGORIES';
 const DELETE_QUESTION = 'QUESTION/DELETE_QUESTION';
 const ADD_QUESTION = 'QUESTION/ADD_QUESTION';
+const EDIT_QUESTION = 'QUESTION/EDIT_QUESTION';
 
 // Action Creators
 export const getAllCategories = () => {

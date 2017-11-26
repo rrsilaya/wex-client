@@ -5,9 +5,26 @@ import Button from 'grommet/components/Button';
 import EditIcon from 'grommet/components/icons/base/Edit';
 import TrashIcon from 'grommet/components/icons/base/Trash';
 
+import ModalContainer from '../Modal/ModalContainer';
+
 class Question extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      show: false,
+      id: null
+    };
+  }
+
+  showModal = () => {
+    this.setState({ show: true });
+  };
+
+  hideModal = () => {
+    this.setState({ show: false });
+  };
+
   handleDelete = () => {
-    // this.props.handleDelete(this.props.id);
     this.props.handleDelete(this.props._id);
   };
 
@@ -23,6 +40,9 @@ class Question extends Component {
         }
         className="card-q"
       >
+        {this.state.show && (
+          <ModalContainer hide={this.hideModal} id={this.state.id} />
+        )}
         {this.props.type === 'multiple_choice' ? (
           <ol className="choices" type="A">
             {this.props.choices.map((choice, i) => <li key={i}>{choice}</li>)}
@@ -31,7 +51,7 @@ class Question extends Component {
           ''
         )}
         <div className="buttons">
-          <Button icon={<EditIcon />} href="#" />
+          <Button icon={<EditIcon />} href="#" onClick={this.showModal} />
           <Button icon={<TrashIcon />} href="#" onClick={this.handleDelete} />
         </div>
       </Card>
