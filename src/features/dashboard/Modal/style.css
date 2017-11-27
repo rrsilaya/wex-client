@@ -22,3 +22,15 @@
 	height: 100px;
 	width: 100%;
 }
+
+.form .split {
+  display: flex;
+}
+
+.form .choice-pad {
+  padding: 10px 24px;
+}
+
+.choice {
+  margin: 10px 0;
+}
