@@ -9,8 +9,31 @@ const NEW_GAME = 'GAME/NEW_GAME';
 const END_GAME = 'GAME/END_GAME';
 const GET_SESSION = 'SESSION/GET_SESSION';
 const ANSWER_QUESTION = 'GAME/ANSWER_QUESTION';
-
+const INC_CATEGORY = 'GAME/INC_CATEGORY';
+const DEC_CATEGORY = 'GAME/DEC_CATEGORY';
+const RESET_COUNT = 'GAME/RESET_COUNT';
 // Action Creators
+export const resetCount = payload => {
+  return {
+    type: RESET_COUNT,
+    payload
+  };
+};
+
+export const incCategory = payload => {
+  return {
+    type: INC_CATEGORY,
+    payload
+  };
+};
+
+export const decCategory = payload => {
+  return {
+    type: DEC_CATEGORY,
+    payload
+  };
+};
+
 export const changePage = payload => {
   return {
     type: CHANGE_PAGE,
@@ -81,7 +104,7 @@ const initialState = {
     qty: '',
     categories: []
   },
-
+  noOfCategories: 0,
   categories: [],
   isGettingCategories: true,
   hasErroredCategories: false,
@@ -97,6 +120,23 @@ const reducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case RESET_COUNT:
+      return {
+        ...state,
+        noOfCategories: 0
+      };
+    case INC_CATEGORY:
+      let prev = state.noOfCategories + 1;
+      return {
+        ...state,
+        noOfCategories: prev
+      };
+    case DEC_CATEGORY:
+      let prev1 = state.noOfCategories - 1;
+      return {
+        ...state,
+        noOfCategories: prev1
+      };
     case CHANGE_PAGE:
       return {
         ...state,

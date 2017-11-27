@@ -37,6 +37,10 @@ class Game extends Component {
             hasError={this.props.hasErroredCategories}
             name={this.props.form.name}
             qty={this.props.form.qty}
+            noOfCategories={this.props.noOfCategories}
+            handleIncCategory={this.props.handleIncCategory}
+            handleDecCategory={this.props.handleDecCategory}
+            handleResetCount={this.props.handleResetCount}
             newGame={this.props.handleNewGame}
           />
         );
