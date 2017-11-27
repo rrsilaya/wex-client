@@ -8,6 +8,11 @@ class Category extends Component {
     this.props.handleGetCategories();
   }
 
+  handleCheck = e => {
+    if (e.target.checked === true) this.props.handleIncCategory();
+    else this.props.handleDecCategory();
+  };
+
   handleSubmit = e => {
     e.preventDefault();
     const categories = [];
@@ -15,11 +20,14 @@ class Category extends Component {
     e.target.category.forEach(
       node => (node.checked ? categories.push(node.value) : '')
     );
-    this.props.newGame({
-      name: this.props.name,
-      qty: parseInt(this.props.qty),
-      categories
-    });
+    if (this.props.noOfCategories === 3) {
+      this.props.handleResetCount();
+      this.props.newGame({
+        name: this.props.name,
+        qty: parseInt(this.props.qty),
+        categories
+      });
+    }
   };
 
   render() {
@@ -47,6 +55,7 @@ class Category extends Component {
                     id={category.category}
                     name="category"
                     value={category.category}
+                    onChange={this.handleCheck}
                   />
                   <label className="category" htmlFor={category.category}>
                     {category.category}
@@ -58,7 +67,11 @@ class Category extends Component {
 
           <div className="proceed">
             <button className="secondary" form="choosecategory" type="submit">
-              Proceed
+              {this.props.noOfCategories === 3
+                ? 'Proceed'
+                : 3 - this.props.noOfCategories < 0
+                  ? '3 only'
+                  : 3 - this.props.noOfCategories + ' to go'}
             </button>
           </div>
         </div>

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Accordion from 'grommet/components/Accordion';
 import AccordionPanel from 'grommet/components/AccordionPanel';
 
-import Question from '../question/Question';
+import QuestionContainer from '../question/QuestionContainer';
 
 class Category extends Component {
   render() {
@@ -11,7 +11,11 @@ class Category extends Component {
       <Accordion openMulti={true}>
         <AccordionPanel heading={this.props.category} pad={'medium'}>
           {this.props.questions.map(question => (
-            <Question {...question} key={question._id} />
+            <QuestionContainer
+              {...question}
+              key={question._id}
+              category={this.props.category}
+            />
           ))}
         </AccordionPanel>
       </Accordion>

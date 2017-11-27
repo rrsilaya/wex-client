@@ -7,13 +7,17 @@ import {
   getCategories,
   newGame,
   endGame,
-  answerQuestion
+  answerQuestion,
+  incCategory,
+  decCategory,
+  resetCount
 } from './duck';
 
 const mapStateToProps = state => {
   const {
     page,
     form,
+    noOfCategories,
     categories,
     isGettingCategories,
     hasErroredCategories,
@@ -25,6 +29,7 @@ const mapStateToProps = state => {
   return {
     page,
     form,
+    noOfCategories,
     categories,
     isGettingCategories,
     hasErroredCategories,
@@ -53,6 +58,15 @@ const mapDispatchToProps = dispatch => {
     },
     handleAnswer: (index, answer) => {
       dispatch(answerQuestion(index, answer));
+    },
+    handleIncCategory: () => {
+      dispatch(incCategory());
+    },
+    handleDecCategory: () => {
+      dispatch(decCategory());
+    },
+    handleResetCount: () => {
+      dispatch(resetCount());
     }
   };
 };
