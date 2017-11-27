@@ -5,6 +5,7 @@ import { handle } from 'redux-pack';
 const GET_CATEGORIES = 'CATEGORY/GET_CATEGORIES';
 const DELETE_QUESTION = 'QUESTION/DELETE_QUESTION';
 const ADD_QUESTION = 'QUESTION/ADD_QUESTION';
+const GET_QUESTION = 'QUESTION/GET_QUESTION';
 const EDIT_QUESTION = 'QUESTION/EDIT_QUESTION';
 
 // Action Creators
@@ -27,6 +28,15 @@ export const addQuestion = question => {
   };
 };
 
+export const getQuestion = id => {
+  return dispatch => {
+    dispatch({
+      type: GET_QUESTION,
+      promise: Api.getQuestion(id)
+    });
+  };
+};
+
 export const deleteQuestion = (id, category) => {
   return dispatch => {
     dispatch({
@@ -37,12 +47,24 @@ export const deleteQuestion = (id, category) => {
   };
 };
 
+export const editQuestion = (id, update) => {
+  return dispatch => {
+    dispatch({
+      type: EDIT_QUESTION,
+      promise: Api.editQuestion(id, update),
+      meta: { id, update }
+    });
+  };
+};
+
 const initialState = {
+  isGettingQuestions: false,
   isGettingQuestion: false,
   isAddingQuestion: false,
+  isEditingQuestion: false,
+  isDeleting: false,
   categories: [],
-
-  isDeleting: false
+  answer: ''
 };
 
 // Reducer
@@ -54,11 +76,27 @@ const reducer = (state = initialState, action) => {
       return handle(state, action, {
         start: prevState => ({
           ...prevState,
-          isGettingQuestion: false
+          isGettingQuestions: true
         }),
         success: prevState => ({
           ...prevState,
           categories: payload.data.data
+        }),
+        finish: prevState => ({
+          ...prevState,
+          isGettingQuestions: false
+        })
+      });
+
+    case GET_QUESTION:
+      return handle(state, action, {
+        start: prevState => ({
+          ...prevState,
+          isGettingQuestion: true
+        }),
+        success: prevState => ({
+          ...prevState,
+          answer: payload.data.data.answer
         }),
         finish: prevState => ({
           ...prevState,
@@ -91,6 +129,21 @@ const reducer = (state = initialState, action) => {
         finish: prevState => ({
           ...prevState,
           isAddingQuestion: false
+        })
+      });
+
+    case EDIT_QUESTION:
+      return handle(state, action, {
+        start: prevState => ({
+          ...prevState,
+          isEditingQuestion: true
+        }),
+        success: prevState => ({
+          ...prevState
+        }),
+        finish: prevState => ({
+          ...prevState,
+          isEditingQuestion: false
         })
       });
 

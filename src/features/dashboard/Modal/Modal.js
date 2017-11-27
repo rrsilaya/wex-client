@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import Layer from 'grommet/components/Layer';
 import Form from 'grommet/components/Form';
-import Header from 'grommet/components/Header';
-import Paragraph from 'grommet/components/Paragraph';
+import Box from 'grommet/components/Box';
+import Split from 'grommet/components/Split';
+import Heading from 'grommet/components/Heading';
 import FormFields from 'grommet/components/FormFields';
+import TextInput from 'grommet/components/TextInput';
+import NumberInput from 'grommet/components/NumberInput';
+import FormField from 'grommet/components/FormField';
 import Button from 'grommet/components/Button';
 import Footer from 'grommet/components/Footer';
 import Select from 'grommet/components/Select';
@@ -13,14 +17,18 @@ import EditIcon from 'grommet/components/icons/base/Edit';
 import Spinning from 'grommet/components/icons/Spinning';
 import './style.css';
 
+import Loader from '../../session/SmallLoader';
+
 class Modal extends Component {
   constructor(props) {
     super(props);
     this.state = {
       mode: this.props.id === null ? 'Add' : 'Edit',
-      selectedCategory: 'Movies',
-      selectedMode: 'multiple_choice',
-      selectedDifficulty: 'Easy'
+      selectedType:
+        this.props.id === null ? '' : this.formatString(this.props.data.type),
+      questionType: this.props.id === null ? '' : this.props.data.type,
+      selectedDifficulty:
+        this.props.id === null ? '' : this.props.data.difficulty
     };
 
     this.changeMode = this.changeMode.bind(this);
@@ -28,16 +36,35 @@ class Modal extends Component {
     this.changeDifficulty = this.changeDifficulty.bind(this);
   }
 
+  componentDidMount() {
+    this.props.handleGetQuestion(this.props.questionId);
+  }
+
+  formatString = string => {
+    switch (string) {
+      case 'multiple_choice':
+        return 'Multiple Choice';
+      case 'true_false':
+        return 'True or False';
+      case 'text':
+        return 'Text Answer';
+      case 'number':
+        return 'Number Answer';
+      default:
+        break;
+    }
+  };
+
   handleSubmit = e => {
     e.preventDefault();
     const question = {
-      category: this.state.selectedCategory,
-      type: this.state.selectedMode,
+      type: this.state.questionType,
       difficulty: this.state.selectedDifficulty,
+      category: e.target.category.value,
       question: e.target.question.value,
       answer: e.target.answer.value,
       choices:
-        this.state.selectedMode === 'multiple_choice'
+        this.state.selectedType === 'Multiple Choice'
           ? [
               e.target.choice1.value,
               e.target.choice2.value,
@@ -52,8 +79,47 @@ class Modal extends Component {
     this.props.handleAddQuestion(question);
   };
 
-  changeMode(e) {
-    this.setState({ selectedMode: e.target.value });
+  handleEdit = e => {
+    e.preventDefault();
+    const body = {
+      type: this.state.questionType,
+      difficulty: this.state.selectedDifficulty,
+      answer: e.target.answer.value,
+      question: e.target.question.value,
+      choices:
+        this.state.selectedType === 'Multiple Choice'
+          ? [
+              e.target.choice1.value,
+              e.target.choice2.value,
+              e.target.choice3.value,
+              e.target.choice4.value
+            ]
+          : []
+    };
+    console.log(body);
+    console.log(this.props);
+    e.target.reset();
+    this.props.handleEditQuestion(this.props.data._id, body);
+    this.props.hide();
+  };
+
+  changeMode({ value }) {
+    switch (value) {
+      case 'Multiple Choice':
+        this.setState({ selectedType: value, questionType: 'multiple_choice' });
+        break;
+      case 'True or False':
+        this.setState({ selectedType: value, questionType: 'true_false' });
+        break;
+      case 'Text Answer':
+        this.setState({ selectedType: value, questionType: 'text' });
+        break;
+      case 'Number Answer':
+        this.setState({ selectedType: value, questionType: 'number' });
+        break;
+      default:
+        break;
+    }
   }
 
   changeCategory({ value }) {
@@ -66,131 +132,228 @@ class Modal extends Component {
 
   render() {
     return (
-      <Layer closer={true} flush={false} onClose="">
-        <Form className="form" onSubmit={this.handleSubmit}>
-          <Header>{this.state.mode} Question</Header>
-          <FormFields>
-            <fieldset>
-              <Paragraph>Select a Category</Paragraph>
-              <Select
-                className="dropdown"
-                placeHolder="None"
-                options={[
-                  'Movies',
-                  'Memes',
-                  'TV Series',
-                  'Anime',
-                  'Last Category'
-                ]}
-                value={this.state.selectedCategory}
-                onChange={this.changeCategory}
-                name="category"
-              />
-
-              <Paragraph>Select Difficulty</Paragraph>
-              <Select
-                className="dropdown"
-                placeHolder="None"
-                options={['Easy', 'Medium', 'Hard']}
-                value={this.state.selectedDifficulty}
-                onChange={this.changeDifficulty}
-                name="difficulty"
-              />
-
-              <Paragraph>Select Question Mode</Paragraph>
-              <form className="category" name="mode">
-                <input
-                  type="radio"
-                  value="multiple_choice"
-                  checked={this.state.selectedMode === 'multiple_choice'}
-                  onChange={this.changeMode}
-                  required
-                />{' '}
-                Multiple Choice<br />
-                <input
-                  type="radio"
-                  value="true_false"
-                  checked={this.state.selectedMode === 'true_false'}
-                  onChange={this.changeMode}
-                  required
-                />{' '}
-                True or False<br />
-                <input
-                  type="radio"
-                  value="text"
-                  checked={this.state.selectedMode === 'text'}
-                  onChange={this.changeMode}
-                  required
-                />{' '}
-                Text Answer<br />
-                <input
-                  type="radio"
-                  value="number"
-                  checked={this.state.selectedMode === 'number'}
-                  onChange={this.changeMode}
-                  required
-                />{' '}
-                Number Answer
-              </form>
-              <Paragraph>Question</Paragraph>
-              <textarea className="question" name="question" required />
-
-              {this.state.selectedMode === 'multiple_choice' && (
-                <div>
-                  <Paragraph>Choices:</Paragraph>
-                  <Paragraph>A</Paragraph>
-                  <textarea className="choices" name="choice1" required />
-                  <Paragraph>B</Paragraph>
-                  <textarea className="choices" name="choice2" required />
-                  <Paragraph>C</Paragraph>
-                  <textarea className="choices" name="choice3" required />
-                  <Paragraph>D</Paragraph>
-                  <textarea className="choices" name="choice4" required />
-                </div>
-              )}
-
-              <Paragraph>Answer</Paragraph>
-              {this.state.selectedMode === 'number' ? (
-                <input
-                  type="number"
-                  className="choices"
-                  name="answer"
-                  required
-                />
-              ) : (
-                <input type="text" className="choices" name="answer" required />
-              )}
-            </fieldset>
-            <t />
-          </FormFields>
-          <Footer pad={{ vertical: 'medium' }}>
-            <Button
-              label={this.state.mode === 'Add' ? 'Add' : 'Edit'}
-              plain={true}
-              icon={
-                this.state.mode === 'Add' ? (
-                  this.props.isAddingQuestion ? (
-                    <Spinning />
+      <Layer closer={true} flush={false}>
+        {this.props.isGettingQuestion ? (
+          <Loader />
+        ) : (
+          <Form
+            className="form"
+            onSubmit={
+              this.state.mode === 'Add' ? this.handleSubmit : this.handleEdit
+            }
+          >
+            <br />
+            <Heading tag={'h2'}>{this.state.mode} Question</Heading>
+            <FormFields>
+              <Split fixed={false} showOnResponsive="both">
+                <FormField label="Category">
+                  {this.state.mode === 'Add' ? (
+                    <TextInput placeHolder="e.g. TV Series" name="category" />
                   ) : (
-                    <AddIcon />
-                  )
-                ) : this.props.isAddingQuestion ? (
-                  <Spinning />
+                    <TextInput
+                      value={this.props.data.category}
+                      name="category"
+                    />
+                  )}
+                </FormField>
+                <FormField label="Difficulty">
+                  <Select
+                    className="dropdown"
+                    placeHolder="None"
+                    options={['Easy', 'Medium', 'Hard']}
+                    value={this.state.selectedDifficulty}
+                    onChange={this.changeDifficulty}
+                    name="difficulty"
+                  />
+                </FormField>
+              </Split>
+              <FormField label="Question Type">
+                <Select
+                  className="dropdown"
+                  placeHolder="None"
+                  options={[
+                    'Multiple Choice',
+                    'True or False',
+                    'Text Answer',
+                    'Number Answer'
+                  ]}
+                  value={this.state.selectedType}
+                  onChange={this.changeMode}
+                  name="mode"
+                />
+              </FormField>
+
+              <FormField label="Question">
+                {this.state.mode === 'Add' ? (
+                  <textarea className="question" name="question" required />
                 ) : (
-                  <EditIcon />
+                  <textarea
+                    className="question"
+                    name="question"
+                    defaultValue={this.props.data.question}
+                    disabled
+                  />
+                )}
+              </FormField>
+
+              {this.state.mode === 'Add' ? (
+                this.state.selectedType === 'Multiple Choice' ? (
+                  <FormField label="Choices">
+                    <Box className="choice-pad">
+                      <FormField>
+                        <TextInput
+                          className="choice"
+                          placeHolder="Choice A"
+                          name="choice1"
+                        />
+                      </FormField>
+                      <FormField>
+                        <TextInput
+                          className="choice"
+                          placeHolder="Choice B"
+                          name="choice2"
+                        />
+                      </FormField>
+                      <FormField>
+                        <TextInput
+                          className="choice"
+                          placeHolder="Choice C"
+                          name="choice3"
+                        />
+                      </FormField>
+                      <FormField>
+                        <TextInput
+                          className="choice"
+                          placeHolder="Choice D"
+                          name="choice4"
+                        />
+                      </FormField>
+                    </Box>
+                  </FormField>
+                ) : (
+                  ''
                 )
-              }
-              type={this.props.isAddingQuestion ? '' : 'submit'}
-            />
-            <Button
-              label="Cancel"
-              plain={true}
-              type="submit"
-              icon={<CloseIcon />}
-              onClick={this.props.hide}
-            />
-          </Footer>
-        </Form>
+              ) : this.state.selectedType === 'Multiple Choice' ? (
+                this.props.data.type === 'multiple_choice' ? (
+                  <FormField label="Choices">
+                    <Box className="choice-pad">
+                      <FormField>
+                        <TextInput
+                          className="choice"
+                          placeHolder="Choice A"
+                          name="choice1"
+                          defaultValue={this.props.data.choices[0]}
+                        />
+                      </FormField>
+                      <FormField>
+                        <TextInput
+                          className="choice"
+                          placeHolder="Choice B"
+                          name="choice2"
+                          defaultValue={this.props.data.choices[1]}
+                        />
+                      </FormField>
+                      <FormField>
+                        <TextInput
+                          className="choice"
+                          placeHolder="Choice C"
+                          name="choice3"
+                          defaultValue={this.props.data.choices[2]}
+                        />
+                      </FormField>
+                      <FormField>
+                        <TextInput
+                          className="choice"
+                          placeHolder="Choice D"
+                          name="choice4"
+                          defaultValue={this.props.data.choices[3]}
+                        />
+                      </FormField>
+                    </Box>
+                  </FormField>
+                ) : (
+                  <FormField label="Choices">
+                    <Box className="choice-pad">
+                      <FormField>
+                        <TextInput
+                          className="choice"
+                          placeHolder="Choice A"
+                          name="choice1"
+                        />
+                      </FormField>
+                      <FormField>
+                        <TextInput
+                          className="choice"
+                          placeHolder="Choice B"
+                          name="choice2"
+                        />
+                      </FormField>
+                      <FormField>
+                        <TextInput
+                          className="choice"
+                          placeHolder="Choice C"
+                          name="choice3"
+                        />
+                      </FormField>
+                      <FormField>
+                        <TextInput
+                          className="choice"
+                          placeHolder="Choice D"
+                          name="choice4"
+                        />
+                      </FormField>
+                    </Box>
+                  </FormField>
+                )
+              ) : (
+                ''
+              )}
+
+              {this.state.mode === 'Add' ? (
+                this.state.selectedType === 'Number Answer' ? (
+                  <FormField label="Answer">
+                    <NumberInput name="answer" placeholder="Enter answer..." />
+                  </FormField>
+                ) : (
+                  <FormField label="Answer">
+                    <TextInput name="answer" placeHolder="Enter answer..." />
+                  </FormField>
+                )
+              ) : this.state.selectedType === 'Number Answer' ? (
+                <FormField label="Answer">
+                  <NumberInput
+                    name="answer"
+                    defaultValue={parseInt(this.props.answer, 10)}
+                  />
+                </FormField>
+              ) : (
+                <FormField label="Answer">
+                  <TextInput
+                    name="answer"
+                    placeHolder="Enter answer..."
+                    defaultValue={this.props.answer}
+                  />
+                </FormField>
+              )}
+            </FormFields>
+
+            <Footer pad={{ vertical: 'medium' }}>
+              <Button
+                label={this.state.mode === 'Add' ? 'Add' : 'Edit'}
+                primary
+                type="submit"
+                icon={this.state.mode === 'Add' ? <AddIcon /> : <EditIcon />}
+              />
+              <Button
+                label="Cancel"
+                primary
+                type="submit"
+                icon={<CloseIcon />}
+                onClick={this.props.hide}
+              />
+            </Footer>
+          </Form>
+        )}
       </Layer>
     );
   }

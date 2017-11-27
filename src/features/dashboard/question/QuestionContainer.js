@@ -4,10 +4,12 @@ import Question from './Question';
 import { deleteQuestion } from '../duck';
 
 const mapStateToProps = state => {
-  const { isDeleting } = state.dashboard;
+  const { isDeleting, answer, isEditingQuestion } = state.dashboard;
 
   return {
-    isDeleting
+    isDeleting,
+    answer,
+    isEditingQuestion
   };
 };
 

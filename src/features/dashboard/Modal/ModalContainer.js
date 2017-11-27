@@ -1,18 +1,24 @@
 import { connect } from 'react-redux';
 import Modal from './Modal';
 
-import { addQuestion } from '../duck';
+import { addQuestion, getQuestion, editQuestion } from '../duck';
 
 const mapStateToProps = state => {
-  const { isAddingQuestion } = state.dashboard;
+  const { answer, isGettingQuestion } = state.dashboard;
 
-  return isAddingQuestion;
+  return { answer, isGettingQuestion };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     handleAddQuestion: question => {
       dispatch(addQuestion(question));
+    },
+    handleGetQuestion: id => {
+      dispatch(getQuestion(id));
+    },
+    handleEditQuestion: (id, update) => {
+      dispatch(editQuestion(id, update));
     }
   };
 };

@@ -13,7 +13,7 @@ class Question extends Component {
     super(props);
     this.state = {
       show: false,
-      id: null
+      id: 'Edit'
     };
   }
 
@@ -42,12 +42,22 @@ class Question extends Component {
         className="card-q"
       >
         {this.state.show && (
-          <ModalContainer hide={this.hideModal} id={this.state.id} />
+          <ModalContainer
+            hide={this.hideModal}
+            id={this.state.id}
+            data={this.props}
+            questionId={this.props._id}
+          />
         )}
         {this.props.type === 'multiple_choice' ? (
           <ol className="choices" type="A">
             {this.props.choices.map((choice, i) => <li key={i}>{choice}</li>)}
           </ol>
+        ) : (
+          ''
+        )}
+        {this.props.isEditingQuestion ? (
+          <Toast status="critical">Editing question</Toast>
         ) : (
           ''
         )}

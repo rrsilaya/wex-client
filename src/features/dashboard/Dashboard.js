@@ -40,7 +40,7 @@ class Dashboard extends Component {
           <ModalContainer hide={this.hideModal} id={this.state.id} />
         )}
         <div className="wrapper">
-          {this.props.isGettingQuestion ? (
+          {this.props.isGettingQuestions ? (
             <Loader />
           ) : (
             <div className="app">
